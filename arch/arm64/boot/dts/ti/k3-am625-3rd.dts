@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: GPL-2.0-only OR MIT
+/*
+ * AM625 SK: https://www.ti.com/lit/zip/sprr448
+ *
+ * Copyright (C) 2021-2024 Texas Instruments Incorporated - https://www.ti.com/
+ */
+
+/dts-v1/;
+
+#include "k3-am625-sk.dts"
+
+/* Match SDK configuration for SD card - more conservative timing */
+&sdhci1 {
+	/delete-property/ vmmc-supply;
+	/delete-property/ vqmmc-supply;
+	ti,driver-strength-ohm = <50>;
+	max-frequency = <25000000>;
+	ti,trm-icp = <0x2>;
+	ti,otap-del-sel-legacy = <0x8>;
+	ti,otap-del-sel-sd-hs = <0x0>;
+	ti,otap-del-sel-sdr12 = <0x0>;
+	ti,otap-del-sel-sdr25 = <0x0>;
+	ti,otap-del-sel-sdr50 = <0x8>;
+	ti,otap-del-sel-sdr104 = <0x7>;
+	ti,otap-del-sel-ddr50 = <0x4>;
+	ti,itap-del-sel-legacy = <0xa>;
+	ti,itap-del-sel-sd-hs = <0x1>;
+	ti,itap-del-sel-sdr12 = <0xA>;
+	ti,itap-del-sel-sdr25 = <0x1>;
+};

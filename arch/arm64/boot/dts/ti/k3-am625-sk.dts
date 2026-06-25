@@ -20,4 +20,240 @@
 		device_type = "memory";
 		bootph-pre-ram;
 	};
+
+    ems_mmc_part {
+        emspart = "ems-mmc";
+        partitions {
+            compatible = "fixed-partitions";
+            #address-cells = <1>;
+            #size-cells = <1>;
+
+            /* Loader and environment partitions */
+            partition@0         {label = "loader0";      reg = <0x00000000 0x00400000>; };
+            partition@400000    {label = "loader1";      reg = <0x00400000 0x00400000>; };
+            partition@800000    {label = "ubootenv";     reg = <0x00800000 0x00080000>; bootable; };
+            partition@880000    {label = "sysflag";      reg = <0x00880000 0x00080000>; bootable; };
+
+            /* FDT partitions (3 copies) */
+            partition@900000    {label = "fdt0";         reg = <0x00900000 0x00080000>; };
+            partition@980000    {label = "fdt1";         reg = <0x00980000 0x00080000>; };
+            partition@A00000    {label = "fdt2";         reg = <0x00A00000 0x00080000>; };
+
+            /* TEE OS partitions (3 copies) */
+            partition@A80000    {label = "teeos0";       reg = <0x00A80000 0x00400000>; };
+            partition@E80000    {label = "teeos1";       reg = <0x00E80000 0x00400000>; };
+            partition@1280000   {label = "teeos2";       reg = <0x01280000 0x00400000>; };
+
+            /* U-Boot partitions (3 copies) */
+            partition@1680000   {label = "uboot0";       reg = <0x01680000 0x00400000>; };
+            partition@1A80000   {label = "uboot1";       reg = <0x01A80000 0x00400000>; };
+            partition@1E80000   {label = "uboot2";       reg = <0x01E80000 0x00400000>; };
+
+            /* Kernel partitions (3 copies) */
+            partition@2280000   {label = "kernel0";      reg = <0x02280000 0x02000000>; };
+            partition@4280000   {label = "kernel1";      reg = <0x04280000 0x02000000>; };
+            partition@6280000   {label = "kernel2";      reg = <0x06280000 0x02000000>; };
+
+            /* Rootfs partitions (3 copies) */
+            partition@8280000   {label = "rootfs0";      reg = <0x08280000 0x02000000>; };
+            partition@A280000   {label = "rootfs1";      reg = <0x0A280000 0x02000000>; };
+            partition@C280000   {label = "rootfs2";      reg = <0x0C280000 0x02000000>; };
+
+            /* Appfs partitions (3 copies) */
+            partition@E280000   {label = "appfs0";       reg = <0x0E280000 0x10000000>; };
+            partition@1E280000  {label = "appfs1";       reg = <0x1E280000 0x10000000>; };
+            partition@2E280000  {label = "appfs2";       reg = <0x2E280000 0x10000000>; };
+        };
+    };
+
+    ems_flash_part {
+        emspart = "ems-flash";
+        partitions {
+            compatible = "fixed-partitions";
+            #address-cells = <1>;
+            #size-cells = <1>;
+
+            /* Loader and environment partitions */
+            partition@0         {label = "loader0";      reg = <0x00000000 0x00400000>; };
+            partition@400000    {label = "loader1";      reg = <0x00400000 0x00400000>; };
+            partition@800000    {label = "ubootenv";     reg = <0x00800000 0x00080000>; bootable; };
+            partition@880000    {label = "sysflag";      reg = <0x00880000 0x00080000>; bootable; };
+
+            /* FDT partitions (3 copies) */
+            partition@900000    {label = "fdt0";         reg = <0x00900000 0x00080000>; };
+            partition@980000    {label = "fdt1";         reg = <0x00980000 0x00080000>; };
+            partition@A00000    {label = "fdt2";         reg = <0x00A00000 0x00080000>; };
+
+            /* TEE OS partitions (3 copies) */
+            partition@A80000    {label = "teeos0";       reg = <0x00A80000 0x00400000>; };
+            partition@E80000    {label = "teeos1";       reg = <0x00E80000 0x00400000>; };
+            partition@1280000   {label = "teeos2";       reg = <0x01280000 0x00400000>; };
+
+            /* U-Boot partitions (3 copies) */
+            partition@1680000   {label = "uboot0";       reg = <0x01680000 0x00400000>; };
+            partition@1A80000   {label = "uboot1";       reg = <0x01A80000 0x00400000>; };
+            partition@1E80000   {label = "uboot2";       reg = <0x01E80000 0x00400000>; };
+
+            /* Kernel partitions (3 copies) */
+            partition@2280000   {label = "kernel0";      reg = <0x02280000 0x02000000>; };
+            partition@4280000   {label = "kernel1";      reg = <0x04280000 0x02000000>; };
+            partition@6280000   {label = "kernel2";      reg = <0x06280000 0x02000000>; };
+
+            /* Rootfs partitions (3 copies) */
+            partition@8280000   {label = "rootfs0";      reg = <0x08280000 0x02000000>; };
+            partition@A280000   {label = "rootfs1";      reg = <0x0A280000 0x02000000>; };
+            partition@C280000   {label = "rootfs2";      reg = <0x0C280000 0x02000000>; };
+
+            /* Appfs partitions (3 copies) */
+            partition@E280000   {label = "appfs0";       reg = <0x0E280000 0x10000000>; };
+            partition@1E280000  {label = "appfs1";       reg = <0x1E280000 0x10000000>; };
+            partition@2E280000  {label = "appfs2";       reg = <0x2E280000 0x10000000>; };
+        };
+    };
+	
+	transceiver1: can-phy0 {
+		compatible = "ti,tcan1042";
+		#phy-cells = <0>;
+		max-bitrate = <5000000>;
+	};
+
+	transceiver2: can-phy1 {
+		compatible = "ti,tcan1042";
+		#phy-cells = <0>;
+		max-bitrate = <5000000>;
+	};
+
+	transceiver3: can-phy2 {
+		compatible = "ti,tcan1042";
+		#phy-cells = <0>;
+		max-bitrate = <5000000>;
+	};
+};
+
+&reserved_memory {
+	shmem_ems_sysflag: shmem_ems_sysflag@98000000 {
+		compatible = "shmem_ems";
+		reg = <0x0 0x98000000 0x0 0x400000>; /* 4MB */
+		no-map; /* 关键！告诉内核不要为这块内存建立虚拟映射 */
+	};
+};
+
+&main_pmx0 {
+	main_mcan0_pins_default: main-mcan0-pins-default {
+		pinctrl-single,pins = <
+			AM62X_IOPAD(0x01dc, PIN_INPUT, 0) /* (E15) MCAN0_RX */
+			AM62X_IOPAD(0x01d8, PIN_OUTPUT, 0) /* (C15) MCAN0_TX */
+		>;
+	};
+};
+
+&pruss_uart {
+	/* Conflict: MCAN0_RX, MCAN0_TX */
+	status = "disabled";
+};
+
+&main_mcan0 {
+	/* J3: RX=P8/TX=P10 */
+	pinctrl-names = "default";
+	pinctrl-0 = <&main_mcan0_pins_default>;
+	phys = <&transceiver1>;
+	status = "okay";
+};
+
+&mcu_mcan0 {
+	/* J10: RX=P22/TX=P16 */
+	phys = <&transceiver2>;
+	status = "okay";
+};
+
+&mcu_mcan1 {
+	/* J10: RX=P11/TX=P10 */
+	phys = <&transceiver3>;
+	status = "okay";
+};
+
+&main_rti0 {
+  status = "okay";
+};
+
+
+/* Disable Unused Devices */
+
+&pruss {
+  status = "disabled";
+};
+
+&mcasp1 {
+  status = "disabled";
+};
+
+&ecap0 {
+  status = "disabled";
+};
+
+&main_rti15 {
+  status = "disabled";
+};
+
+&main_rti3 {
+  status = "disabled";
+};
+
+&main_rti2 {
+  status = "disabled";
+};
+
+&main_rti1 {
+  status = "disabled";
+};
+
+&ecap2 {
+  status = "disabled";
+};
+
+&epwm1 {
+  status = "disabled";
+};
+
+&dss {
+  status = "disabled";
+};
+
+&gpu {
+  status = "disabled";
+};
+
+&usbss1 {
+  status = "disabled";
+};
+
+&usbss0 {
+  status = "disabled";
+};
+
+&wkup_vtm0 {
+  status = "disabled";
+};
+
+&wkup_r5fss0 {
+  status = "disabled";
+};
+
+&wkup_rtc0 {
+  status = "disabled";
+};
+
+/* Disable OSPI flash */
+&ospi0 {
+  status = "disabled";
+};
+
+/* Disable HDMI bridge */
+&sii9022 {
+  status = "disabled";
+};
+
+/* Disable audio codec */
+&tlv320aic3106 {
+  status = "disabled";
 };
